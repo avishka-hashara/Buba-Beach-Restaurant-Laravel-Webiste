@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('gallery_images', function (Blueprint $table) {
             $table->id();
+            $table->string('title')->nullable();
+            $table->string('image_url');
+            $table->integer('sort_order')->default(0); // Useful for reordering gallery
+            $table->boolean('is_visible')->default(true);
             $table->timestamps();
         });
     }

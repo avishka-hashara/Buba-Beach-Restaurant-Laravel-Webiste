@@ -10,12 +10,19 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('menu_items', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('menu_items', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('category_id')->constrained()->cascadeOnDelete();
+        $table->string('name');
+        $table->string('slug')->unique();
+        $table->text('description')->nullable();
+        $table->decimal('price', 8, 2); // e.g., 999999.99
+        $table->string('image_url')->nullable();
+        $table->boolean('is_available')->default(true);
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.
