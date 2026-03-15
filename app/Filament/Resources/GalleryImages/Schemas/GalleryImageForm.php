@@ -15,6 +15,8 @@ class GalleryImageForm
             ->components([
                 TextInput::make('title'),
                 FileUpload::make('image_url')
+                    ->disk('public')
+                    ->directory('gallery')
                     ->image()
                     ->required(),
                 TextInput::make('sort_order')

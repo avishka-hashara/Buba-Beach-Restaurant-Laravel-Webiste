@@ -29,6 +29,8 @@ class MenuItemForm
                     ->numeric()
                     ->prefix('$'),
                 FileUpload::make('image_url')
+                    ->disk('public')
+                    ->directory('menu-items')
                     ->image(),
                 Toggle::make('is_available')
                     ->required(),

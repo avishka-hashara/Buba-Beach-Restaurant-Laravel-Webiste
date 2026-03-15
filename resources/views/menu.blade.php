@@ -40,7 +40,23 @@
                             @forelse($category->menuItems as $item)
                                 <div class="flex flex-col overflow-hidden transition-shadow duration-300 bg-white rounded-lg shadow-md hover:shadow-xl">
                                     @if($item->image_url)
-                                        <img src="{{ $item->image_url }}" alt="{{ $item->name }}" class="object-cover w-full h-48">
+                                        @php
+                                            $isAbsoluteUrl = str_starts_with($item->image_url, 'http://') || str_starts_with($item->image_url, 'https://');
+                                            $normalizedPath = ltrim($item->image_url, '/');
+
+                                            if (str_starts_with($normalizedPath, 'storage/')) {
+                                                $normalizedPath = substr($normalizedPath, strlen('storage/'));
+                                            }
+
+                                            if (str_starts_with($normalizedPath, 'public/')) {
+                                                $normalizedPath = substr($normalizedPath, strlen('public/'));
+                                            }
+
+                                            $imageUrl = $isAbsoluteUrl
+                                                ? $item->image_url
+                                                : asset('storage/' . $normalizedPath);
+                                        @endphp
+                                        <img src="{{ $imageUrl }}" alt="{{ $item->name }}" class="object-cover w-full h-48">
                                     @else
                                         <div class="flex items-center justify-center w-full h-48 bg-gray-200">
                                             <span class="text-gray-400">No Image</span>
