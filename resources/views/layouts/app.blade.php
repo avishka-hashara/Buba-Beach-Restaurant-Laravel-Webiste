@@ -30,4 +30,12 @@
     </footer>
 
 </body>
+    <footer class="py-8 text-center text-white bg-gray-900">
+            <p>&copy; {{ date('Y') }} Buba Beach. All rights reserved.</p>
+        </footer>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+        
+        @stack('scripts') </body>
 </html>
