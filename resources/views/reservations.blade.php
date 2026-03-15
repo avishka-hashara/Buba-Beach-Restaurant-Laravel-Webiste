@@ -32,6 +32,12 @@
                     </div>
                 </div>
 
+                <div>
+                    <label class="block mb-2 text-sm font-bold text-gray-700">Phone Number</label>
+                    <input type="text" name="phone" value="{{ old('phone') }}" class="w-full px-4 py-2 border rounded-lg focus:ring-primary focus:border-primary @error('phone') border-red-500 @enderror">
+                    @error('phone') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                </div>
+
                 <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
                     <div>
                         <label class="block mb-2 text-sm font-bold text-gray-700">Date</label>
