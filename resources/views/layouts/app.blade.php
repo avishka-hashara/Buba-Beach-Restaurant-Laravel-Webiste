@@ -12,23 +12,82 @@
     <meta property="og:description" content="@yield('meta_description', 'Experience the best beachside dining.')">
     <meta property="og:type" content="website">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="flex flex-col min-h-screen font-sans antialiased text-gray-900 bg-gray-50">
 
-    <nav class="p-6 text-white shadow-md bg-primary" x-data="{ open: false }">
-        <div class="container flex items-center justify-between mx-auto max-w-7xl">
-            <a href="{{ route('home') }}" class="text-2xl font-bold tracking-wider transition-colors hover:text-secondary">BUBA BEACH</a>
+    <nav x-data="{ isMobileMenuOpen: false, isScrolled: false }" 
+         @scroll.window="isScrolled = (window.pageYOffset > 50)"
+         :class="isScrolled ? 'bg-white/95 backdrop-blur-sm shadow-lg py-2' : 'bg-white shadow-sm py-4'"
+         class="fixed top-0 z-50 w-full transition-all duration-300">
+         
+        <div class="container flex items-center justify-between px-4 mx-auto max-w-7xl">
             
-            <div class="hidden space-x-6 md:flex">
-                <a href="{{ route('home') }}" class="font-semibold transition-colors hover:text-secondary">Home</a>
-                <a href="{{ route('menu') }}" class="font-semibold transition-colors hover:text-secondary">Menu</a>
-                <a href="{{ route('reservations.create') }}" class="font-semibold transition-colors hover:text-secondary">Reservations</a>
+            <a href="{{ route('home') }}" class="flex items-center gap-3 group">
+                <div class="flex items-center justify-center w-12 h-12 text-xl font-bold text-white rounded shadow-md bg-primary">
+                    BB
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-2xl font-bold tracking-wide text-gray-900" style="font-family: 'Playfair Display', serif;">Buba Beach</span>
+                    <span class="text-[0.65rem] tracking-[0.2em] font-bold text-secondary uppercase">Premium Ocean Dining</span>
+                </div>
+            </a>
+            
+            <div class="hidden space-x-8 lg:flex items-center">
+                <a href="{{ route('home') }}" class="relative py-2 text-sm font-bold tracking-wider text-gray-700 uppercase transition-colors hover:text-primary group">
+                    Home
+                    <span class="absolute bottom-0 left-0 w-full h-[3px] transition-transform duration-300 origin-left scale-x-0 bg-secondary group-hover:scale-x-100 {{ request()->routeIs('home') ? 'scale-x-100' : '' }}"></span>
+                </a>
+                
+                <a href="{{ route('menu') }}" class="relative py-2 text-sm font-bold tracking-wider text-gray-700 uppercase transition-colors hover:text-primary group">
+                    Our Menu
+                    <span class="absolute bottom-0 left-0 w-full h-[3px] transition-transform duration-300 origin-left scale-x-0 bg-secondary group-hover:scale-x-100 {{ request()->routeIs('menu') ? 'scale-x-100' : '' }}"></span>
+                </a>
+
+                <a href="{{ route('reservations.create') }}" class="relative py-2 text-sm font-bold tracking-wider text-gray-700 uppercase transition-colors hover:text-primary group">
+                    Contact Us
+                    <span class="absolute bottom-0 left-0 w-full h-[3px] transition-transform duration-300 origin-left scale-x-0 bg-secondary group-hover:scale-x-100 {{ request()->routeIs('contact') ? 'scale-x-100' : '' }}"></span>
+                </a>
+            </div>
+
+            <div class="hidden lg:block">
+                <a href="{{ route('reservations.create') }}" class="flex items-center gap-2 px-6 py-3 text-sm font-bold tracking-wider text-gray-900 uppercase transition-all shadow-md bg-secondary hover:bg-yellow-400 hover:shadow-lg hover:-translate-y-0.5">
+                    Book A Table
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                    </svg>
+                </a>
+            </div>
+
+            <button @click="isMobileMenuOpen = !isMobileMenuOpen" class="p-2 text-gray-600 lg:hidden hover:text-primary focus:outline-none">
+                <svg x-show="!isMobileMenuOpen" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <svg x-show="isMobileMenuOpen" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <div x-show="isMobileMenuOpen" 
+             x-collapse 
+             class="bg-white border-t border-gray-100 shadow-xl lg:hidden">
+            <div class="flex flex-col px-4 pt-2 pb-6 space-y-2">
+                <a href="{{ route('home') }}" class="block px-4 py-3 text-sm font-bold tracking-wider text-gray-700 uppercase rounded hover:bg-gray-50 {{ request()->routeIs('home') ? 'text-primary bg-blue-50' : '' }}">Home</a>
+                <a href="{{ route('menu') }}" class="block px-4 py-3 text-sm font-bold tracking-wider text-gray-700 uppercase rounded hover:bg-gray-50 {{ request()->routeIs('menu') ? 'text-primary bg-blue-50' : '' }}">Our Menu</a>
+                <a href="{{ route('reservations.create') }}" class="block px-4 py-3 text-sm font-bold tracking-wider text-gray-700 uppercase rounded hover:bg-gray-50 {{ request()->routeIs('contact') ? 'text-primary bg-blue-50' : '' }}">Contact Us</a>
+                
+                <a href="{{ route('reservations.create') }}" class="flex items-center justify-center gap-2 px-4 py-3 mt-4 text-sm font-bold tracking-wider text-gray-900 uppercase shadow-sm bg-secondary rounded-xl">
+                    Book A Table
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                    </svg>
+                </a>
             </div>
         </div>
     </nav>
 
-    <main class="flex-grow opacity-0 page-content">
+    <main class="flex-grow pt-24 opacity-0 page-content">
         @yield('content')
     </main>
 
