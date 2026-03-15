@@ -26,4 +26,9 @@ class PageController extends Controller
 
         return view('menu', compact('categories'));
     }
+
+    public function contact() 
+    { 
+        return view('contact'); 
+    }
 }
