@@ -36,7 +36,8 @@
                              x-transition:enter-start="opacity-0 translate-y-4"
                              x-transition:enter-end="opacity-100 translate-y-0"
                              class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
-                             style="display: none;"> @forelse($category->menuItems as $item)
+                             style="display: none;">
+                            @forelse($category->menuItems as $item)
                                 <div class="flex flex-col overflow-hidden transition-shadow duration-300 bg-white rounded-lg shadow-md hover:shadow-xl">
                                     @if($item->image_url)
                                         <img src="{{ $item->image_url }}" alt="{{ $item->name }}" class="object-cover w-full h-48">
@@ -58,7 +59,7 @@
                                 <div class="col-span-full">
                                     <p class="text-center text-gray-500">No items available in this category yet.</p>
                                 </div>
-                            @forelse
+                            @endforelse
                         </div>
                     @endforeach
                 </div>
