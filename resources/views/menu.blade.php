@@ -56,7 +56,7 @@
                                                 ? $item->image_url
                                                 : asset('storage/' . $normalizedPath);
                                         @endphp
-                                        <img src="{{ $imageUrl }}" alt="{{ $item->name }}" class="object-cover w-full h-48">
+                                        <img src="{{ $imageUrl }}" alt="{{ $item->name }}" class="object-cover w-full h-48" loading="lazy">
                                     @else
                                         <div class="flex items-center justify-center w-full h-48 bg-gray-200">
                                             <span class="text-gray-400">No Image</span>
