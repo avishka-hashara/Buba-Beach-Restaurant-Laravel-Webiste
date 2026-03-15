@@ -15,7 +15,7 @@
             
             <div class="hidden space-x-6 md:flex">
                 <a href="/" class="hover:text-secondary">Home</a>
-                <a href="#" class="hover:text-secondary">Menu</a>
+                <a href="{{ route('menu') }}" class="hover:text-secondary">Menu</a>
                 <a href="#" class="hover:text-secondary">Reservations</a>
             </div>
         </div>
